@@ -1,0 +1,32 @@
+export let events = [
+  {
+    id: 1,
+    titulo: "Evento de Tecnologia",
+    descricao: "Um evento para discutir as últimas tendências em tecnologia.",
+    local: "Natal, RN",
+    data: "2024-07-15",
+    hora: "18:00",
+    participantes: ["João", "Maria", "Carlos"],
+    acesso: "Público",
+  },
+  {
+    id: 2,
+    titulo: "Workshop de Desenvolvimento Web",
+    descricao: "Aprenda a criar sites e aplicações web do zero.",
+    local: "Natal, RN",
+    data: "2024-08-20",
+    hora: "14:00",
+    participantes: ["Ana", "Pedro", "Luiza"],
+    acesso: "Para estudantes de CeT",
+  },
+  {
+    id: 3,
+    titulo: "Palestra sobre Inteligência Artificial",
+    descricao: "Entenda como a IA está transformando o mundo.",
+    local: "Natal, RN",
+    data: "2024-09-10",
+    hora: "19:00",
+    participantes: ["Ricardo", "Fernanda", "Marcos"],
+    acesso: "Público",
+  },
+];
