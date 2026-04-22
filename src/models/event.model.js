@@ -7,14 +7,14 @@ const eventSchema = new mongoose.Schema({
   },
   descricao: {
     type: String,
-    required: true,
+    required: false,
   },
   local: {
     type: String,
     required: true,
   },
   data: {
-    type: Date,
+    type: String,
     required: true,
   },
   horario: {
@@ -23,7 +23,7 @@ const eventSchema = new mongoose.Schema({
   },
   participantes: {
     type: [String],
-    required: true,
+    required: false,
   },
   acesso: {
     type: String,
