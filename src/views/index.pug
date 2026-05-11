@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  section
+    header.section-header
+      h2 Catálogo de Eventos
+      p Explore experiências exclusivas em Natal
+      
+    .event-grid
+      each event in events
+        a.event-card(href=`/events/${event.id}`)
+          //- Badge dinâmico (ajuste o nome da propriedade conforme seu banco)
+          - const statusClass = (event.acesso || 'Público').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          span(class=`status-badge ${statusClass}`)
+            i.fas.fa-circle
+            | #{event.acesso || 'Público'}
+          
+          .event-content
+            h3 #{event.title || event.titulo}
+            
+            .event-info-row
+              i.far.fa-calendar-alt
+              span #{event.date || event.data}
+              
+            .event-info-row
+              i.fas.fa-map-marker-alt
+              span #{event.local || 'Natal, RN'}
+      else
+        .empty-state
+          i.fas.fa-calendar-times(style="font-size: 3rem; color: #333; margin-bottom: 20px;")
+          p O catálogo está vazio por enquanto.

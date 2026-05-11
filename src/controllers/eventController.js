@@ -1,79 +1,68 @@
-//import { events } from "../data/eventData.js";
-import EventModel from "../models/event.model.js";
+import {
+  getEventsService,
+  getEventByNameService,
+  getEventByIdService,
+  createEventService,
+  parcialUpdateEventService,
+  deleteEventService,
+} from "../services/eventService.js";
 
-// Ver todos os eventos
-export const getEvents = async (req, res) => {
+export const getEvents = async (req, res, next) => {
   try {
-    const events = await EventModel.find();
+    const events = await getEventsService();
     res.json(events);
   } catch (error) {
-    console.error("Erro ao buscar eventos:", error.message);
-    return res.status(500).json({ message: "Erro ao buscar eventos" });
+    next(error);
   }
 };
 
-// Ver um evento específico por ID
-export const getEventById = async (req, res) => {
+export const getEventbyName = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const event = await EventModel.findById(id);
-    if (!event) {
-      return res.status(404).json({ message: "Evento não encontrado" });
-    }
+    const name = req.params.name;
+    const event = await getEventByNameService(name);
     res.json(event);
   } catch (error) {
-    console.error("Erro ao buscar evento:", error.message);
-    return res.status(500).json({ message: "Erro ao buscar evento" });
+    next(error);
   }
 };
 
-// Criar um novo evento
-export const createEvent = async (req, res) => {
+export const getEventById = async (req, res, next) => {
   try {
-    const event = await EventModel.create(req.body);
+    const id = req.params.id;
+    const event = await getEventByIdService(id);
+    res.json(event);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createEvent = async (req, res, next) => {
+  try {
+    const eventData = req.body;
+    const event = await createEventService(eventData);
     res.status(201).json(event);
   } catch (error) {
-    console.error("Erro ao criar evento:", error.message);
-    return res.status(500).json({ message: "Erro ao criar evento" });
+    next(error);
   }
 };
 
-// Atualizar um evento existente
-export const updateEvent = async (req, res) => {
+export const parcialUpdateEvent = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const event = await EventModel.findById(id);
-    if (!event) {
-      return res.status(404).json({ message: "Evento não encontrado" });
-    }
-    const { titulo, descricao, local, data, horario, participantes, acesso } =
-      req.body;
-    if (titulo) event.titulo = titulo;
-    if (descricao) event.descricao = descricao;
-    if (local) event.local = local;
-    if (data) event.data = data;
-    if (horario) event.horario = horario;
-    if (participantes) event.participantes = participantes;
-    if (acesso) event.acesso = acesso;
-    await event.save();
+    const eventData = req.body;
+    const event = await parcialUpdateEventService(id, eventData);
     res.json(event);
   } catch (error) {
-    console.error("Erro ao atualizar evento:", error.message);
-    return res.status(500).json({ message: "Erro ao atualizar evento" });
+    next(error);
   }
 };
 
-// Deletar um evento
-export const deleteEvent = async (req, res) => {
+export const deleteEvent = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const event = await EventModel.findByIdAndDelete(id);
-    if (!event) {
-      return res.status(404).json({ message: "Evento não encontrado" });
-    }
+    await deleteEventService(id);
     res.json({ message: "Evento removido com sucesso" });
   } catch (error) {
-    console.error("Erro ao deletar evento:", error.message);
-    return res.status(500).json({ message: "Erro ao deletar evento" });
+    next(error);
   }
 };

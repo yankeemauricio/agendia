@@ -1,19 +1,25 @@
 import { Router } from "express";
 import {
   getEvents,
+  getEventbyName,
   getEventById,
   createEvent,
-  updateEvent,
+  parcialUpdateEvent,
   deleteEvent,
 } from "../controllers/eventController.js";
-import eventValidationRules from "../validators/eventValidator.js";
+import {
+  eventCreateValidationRules,
+  eventUpdateValidationRules,
+} from "../validators/eventValidator.js";
+import validate from "../middlewares/validatorMiddleware.js";
 
 const router = Router();
 
 router.get("/", getEvents);
-router.get("/event/:id", getEventById);
-router.post("/event", eventValidationRules, createEvent);
-router.patch("/event/:id", updateEvent);
-router.delete("/event/:id", deleteEvent);
+router.get("/search/:name", getEventbyName);
+router.get("/:id", getEventById);
+router.post("/", eventCreateValidationRules, validate, createEvent);
+router.patch("/:id", eventUpdateValidationRules, validate, parcialUpdateEvent);
+router.delete("/:id", deleteEvent);
 
 export default router;

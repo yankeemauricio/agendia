@@ -1,0 +1,52 @@
+doctype html
+html(lang="pt-br")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Agendia | Eventos Originais
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+  body
+    header
+      a(href="/" style="text-decoration:none")
+        h1 Agendia
+    
+    main.container
+      block content
+
+    footer
+      p &copy; 2026 Agendia Brasil. Todos os direitos reservados.
+    
+    //- Script Global para Fetch
+    script.
+      async function sendForm(event, url) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        const btn = event.target.querySelector('button');
+        const originalText = btn.innerText;
+
+        try {
+          btn.innerText = "CARREGANDO...";
+          btn.disabled = true;
+
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            alert("Inscrição realizada com sucesso! Verifique seu e-mail.");
+            event.target.reset();
+          } else {
+            const err = await response.json();
+            alert("Erro: " + (err.message || "Falha ao se inscrever."));
+          }
+        } catch (error) {
+          alert("Erro de conexão com o servidor.");
+        } finally {
+          btn.innerText = originalText;
+          btn.disabled = false;
+        }
+      }
