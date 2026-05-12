@@ -3,20 +3,28 @@ html(lang="pt-br")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Agendia | Eventos Originais
+    title agendia | Eventos Originais
+    
+    //- Favicon (O 'A' do Spotlight)
+    link(rel="shortcut icon", href="/images/favicon.png", type="image/png")
+    
     link(rel="stylesheet", href="/css/style.css")
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
   body
-    header
-      a(href="/" style="text-decoration:none")
-        h1 Agendia
+    header.principal
+      .header-container(style="display: flex; justify-content: center; align-items: center; width: 100%;")
+        a(href="/" style="text-decoration:none")
+          //- Logo Principal do Header
+          img.logo-header(src="/images/logo-agendia-header.png" alt="Agendia" style="height: 45px; width: auto;")
     
     main.container
       block content
 
     footer
-      p &copy; 2026 Agendia Brasil. Todos os direitos reservados.
-    
+      .footer-content(style="display: flex; flex-direction: column; align-items: center;")
+        //- Logo Simplificada ou Monograma para o Footer
+        img.logo-footer(src="/images/logo-agendia-footer.png" alt="Agendia" style="height: 100px; width: auto; margin-bottom: 20px; opacity: 0.6;")
+        p &copy; 2026 Agendia Brasil. Todos os direitos reservados.
     //- Script Global para Fetch
     script.
       async function sendForm(event, url) {

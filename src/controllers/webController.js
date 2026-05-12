@@ -7,7 +7,7 @@ import { registerParticipantService } from "../services/participantService.js";
 
 export const getEventsWeb = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { search } = req.params;
     let events;
 
     if (search) {

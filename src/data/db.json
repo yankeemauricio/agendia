@@ -71,10 +71,24 @@
           "telefone": 88888888888,
           "cpf": 66655544488,
           "dataNascimento": "14/02/2005"
+        },
+        {
+          "id": "7c505081-dd87-4938-88bd-9e93589eb92c",
+          "nome": "Gustavo Henrique",
+          "email": "gustavo@mail.com",
+          "telefone": "48918283866",
+          "cpf": "00000000001"
+        },
+        {
+          "id": "432af330-c1fa-405c-89ac-94b17f199eb0",
+          "nome": "Yankee Mauricio",
+          "email": "yankee@mail.com",
+          "telefone": "84981578181",
+          "cpf": "12312354645"
         }
       ],
       "acesso": "Restrito",
-      "vagas": 40
+      "vagas": 3
     },
     {
       "id": "a9b8c7d6-e5f4-3a21-0b1c-2d3e4f5a6b7c",
@@ -211,6 +225,13 @@
           "telefone": 88888888888,
           "cpf": 66655544488,
           "dataNascimento": "14/02/2005"
+        },
+        {
+          "id": "c4374656-a25b-40c4-a645-30e7a1e29b9f",
+          "nome": "João Silva",
+          "email": "joao@email.com.br",
+          "telefone": "48918283866",
+          "cpf": "12312354645"
         }
       ],
       "acesso": "Privado",
@@ -1135,7 +1156,10 @@
       "data": "05-07-2026",
       "horario": "19:00",
       "local": "Discord (Canal de voz)",
-      "participantes": ["6625a...e1", "6625a...e2"],
+      "participantes": [
+        "6625a...e1",
+        "6625a...e2"
+      ],
       "acesso": "Restrito",
       "vagas": 35
     },

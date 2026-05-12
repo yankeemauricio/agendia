@@ -10,14 +10,14 @@ block content
     .badge-original EVENTO ORIGINAL AGENDIA
     h2= event.titulo || event.title
     
-    .meta-bar
-      span.meta-item
+    .meta-bar(style="display: flex; gap: 10px; margin: 15px 0; color: var(--text-gray);")
+      span.meta-item(style="display: flex; align-items: center; gap: 5px;")
         i.far.fa-calendar-check
         | #{event.data}
-      span.meta-item
+      span.meta-item(style="display: flex; align-items: center; gap: 5px;")
         i.far.fa-clock
         | #{event.horario}
-      span.meta-item
+      span.meta-item(style="display: flex; align-items: center; gap: 5px;")
         i.fas.fa-location-dot
         | #{event.local}
     
@@ -42,23 +42,23 @@ block content
 
     //- Função fetch definida no layout
     form(onsubmit=`sendForm(event, '/events/${event.id}/register')`)
-      .input-grid
-        .field
+      .input-grid(style="display: grid; grid-template-columns: 2fr 2fr; gap: 20px;")
+        .field(style="display: flex; flex-direction: column;")
           label Nome Completo
           input(type="text", name="nome", placeholder="Ex: João Silva", required)
-        .field
+        .field(style="display: flex; flex-direction: column;")
           label E-mail
           input(type="email", name="email", placeholder="joao@email.com", required)
-        .field
+        .field(style="display: flex; flex-direction: column;")
           label CPF
           input(type="text", name="cpf", placeholder="000.000.000-00", required)
-        .field
+        .field(style="display: flex; flex-direction: column;")
           label Telefone / WhatsApp
           input(type="text", name="telefone", placeholder="(84) 99999-9999")
       
       if vagasRestantes > 0
-        button.btn-play(type="submit") 
+        button.btn-play(type="submit" style="margin-top: 20px; width: 100%;") 
           i.fas.fa-check
           |  CONFIRMAR MINHA INSCRIÇÃO
       else
-        button.btn-play.disabled(type="button" disabled) ESGOTADO
+        button.btn-play.disabled(type="button" disabled style="margin-top: 20px; width: 100%;") ESGOTADO
