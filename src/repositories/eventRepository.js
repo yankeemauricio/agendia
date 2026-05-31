@@ -36,7 +36,9 @@ export const createEventRepository = async (eventData) => {
   const newEvent = {
     id: randomUUID(),
     ...eventData,
+    participantes: [],
   };
+  console.log(`event repository - newEvent: ${JSON.stringify(newEvent)}`);
   db.data.events.push(newEvent);
   await db.write();
   return eventResponseDTO(newEvent);
