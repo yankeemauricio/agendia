@@ -11,6 +11,7 @@ export const userLocalMiddleware = (req, res, next) => {
       res.locals.user = {
         id: decoded.userId,
         name: decoded.name,
+        role: decoded.userRole || "user",
       };
     } catch (err) {
       res.clearCookie("token");

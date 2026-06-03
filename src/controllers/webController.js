@@ -62,6 +62,12 @@ export const loginPage = (req, res) => {
   res.render("login", { error });
 };
 
+export const userPage = (req, res) => {
+  db.read();
+  const user = db.data.users.find((u) => u.id === req.userId);
+  res.render("perfil", { user });
+};
+
 export const createEventPage = (req, res) => {
   res.render("criar-evento", { event: null, error: null });
 };
@@ -69,7 +75,7 @@ export const createEventPage = (req, res) => {
 export const adminEventsPage = (req, res) => {
   db.read();
   const events = db.data.events;
-  res.render("admin-eventos", { events });
+  res.render("analisar-eventos", { events });
 };
 
 export const editEventPage = (req, res) => {

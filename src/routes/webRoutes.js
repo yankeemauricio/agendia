@@ -8,6 +8,7 @@ import {
   createEventPage,
   adminEventsPage,
   editEventPage,
+  userPage,
 } from "../controllers/webController.js";
 import { loginMiddleware } from "../middlewares/loginMiddleware.js";
 import { checkRole } from "../middlewares/permissionMiddleware.js";
@@ -19,6 +20,7 @@ router.get("/events/:id", loginMiddleware, getEventDetailsWeb);
 router.get("/meus-eventos", loginMiddleware, getMyEventsWeb);
 router.get("/login", loginPage);
 router.get("/cadastro", registerPage);
+router.get("/perfil", loginMiddleware, userPage); // Página de perfil (pode ser editada depois para mostrar detalhes do usuário)
 ///admin
 router.get(
   "/admin/criar-evento",
@@ -33,7 +35,7 @@ router.get(
   adminEventsPage,
 );
 router.get(
-  "/admin/evento/:id",
+  "/admin/editar-evento/:id",
   loginMiddleware,
   checkRole("admin"),
   editEventPage,
