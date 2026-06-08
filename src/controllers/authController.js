@@ -1,6 +1,7 @@
 import { db } from "../data/data.js";
 import { registerUserService } from "../services/userService.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const JWT_SECRET = "sua-chave-super-secreta-e-longa-12345";
 
@@ -23,7 +24,8 @@ export const login = async (req, res) => {
     }
 
     // 3. Verificar se a senha está correta
-    if (user.senha !== password) {
+    const passwordMatch = await bcrypt.compare(password, user.senha);
+    if (!passwordMatch) {
       return res.status(401).json({ error: "E-mail ou senha incorretos." });
     }
 

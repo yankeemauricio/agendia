@@ -23,8 +23,10 @@ html(lang="pt-br")
           //- Lado Esquerdo do Widget: Nome do Usuário e Links de Navegação
           .user-navigation(style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;")
             .user-info(style="display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.9rem; font-weight: 500; margin-right: 10px;")
-              i.fa-solid.fa-user-circle(style="color: var(--primary, #a855f7); font-size: 1.1rem;")
-              span Olá, #{user.name || user.nome}!
+              //- Alterado de 'i' para 'a' e estilizado para manter o visual original
+              a(href="/perfil" style="color: var(--primary, #a855f7); text-decoration: none; font-size: 1.1rem; display: inline-flex; align-items: center; transition: opacity 0.2s;")
+                i.fa-solid.fa-user-circle
+              span #{user.name || user.nome}
             
             //- Bloco Isolado do Admin: Renderiza os botões extras APENAS se for administrador
             if user.role === 'admin' || user.papel === 'admin' || user.userRole === 'admin'
@@ -70,6 +72,9 @@ html(lang="pt-br")
       .btn-my-registrations:hover {
         background: var(--primary, #a855f7);
         color: #fff !important;
+      }
+      .user-info a:hover {
+        filter: brightness(1.5);
       }
 
     script.

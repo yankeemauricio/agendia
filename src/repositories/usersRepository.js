@@ -2,6 +2,7 @@ import { db } from "../data/data.js";
 import { randomUUID } from "node:crypto";
 import Fuse from "fuse.js";
 import { usersListResponseDTO, usersResponseDTO } from "../dtos/usersDTO.js";
+import bcrypt from "bcrypt";
 
 export const getUsersRepository = async () => {
   db.read();
@@ -45,9 +46,15 @@ export const getUserByEmailRepository = async (email) => {
 
 export const registerUserRepository = async (userData) => {
   await db.read();
+
+  const saltRounds = 10;
+
+  const hashedPassword = await bcrypt.hash(userData.senha, saltRounds);
+
   const newUser = {
     id: randomUUID(),
     ...userData,
+    senha: hashedPassword,
     eventos: [],
   };
   db.data.users.push(newUser);

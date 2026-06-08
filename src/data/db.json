@@ -7,7 +7,7 @@
       "telefone": "00912121212",
       "dataNascimento": "2002-12-12",
       "cpf": "12312354645",
-      "senha": "123",
+      "senha": "$2b$10$tTGRFOjXfODxMG/6NHvXnOGw8muw8Xu9hjwd0Fysj3uGq.HY4JnMu",
       "eventos": [
         "f8e7d6c5-b4a3-4210-9182-736455463728",
         "4e7c7a52-9b2e-4f1a-8c9e-5872a4837b12",
@@ -21,7 +21,7 @@
       "telefone": "84981578181",
       "dataNascimento": "2002-12-04",
       "cpf": "70135366445",
-      "senha": "12345678",
+      "senha": "$2b$10$Rsr90vsiuwCoGmIGKiGCyesUrUaoiUYLXYoXNEKJmjXGS7bz0lJpy",
       "eventos": [
         "b1a2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"
       ]
@@ -33,7 +33,7 @@
       "telefone": "84999694782",
       "dataNascimento": "2006-06-10",
       "cpf": "11111111112",
-      "senha": "lavalouca",
+      "senha": "$2b$10$m6avrYbzDqbjZLIe0.WIjelwa0RooEo2pqM6qi3Ii3NqhEmfrA1pu",
       "eventos": []
     },
     {
@@ -43,7 +43,7 @@
       "telefone": "84999169852",
       "dataNascimento": "2005-11-09",
       "cpf": "08759764414",
-      "senha": "mulheresegays",
+      "senha": "$2b$10$D37jWfareIdqWgmPyji3u.FvTy11cpMWWexth0jeCj3K7hFKk3kxW",
       "eventos": []
     },
     {
@@ -53,9 +53,19 @@
       "telefone": "88988558855",
       "dataNascimento": "2002-12-04",
       "cpf": "00000000002",
-      "senha": "123",
+      "senha": "$2b$10$/zo5s7/zS06jb10HeUDm4.Fx8SZMtLcBC6BgTSsjhVrsTmybk0LTq",
       "eventos": [],
       "papel": "admin"
+    },
+    {
+      "id": "04dced36-25ef-432b-8520-e947941012cb",
+      "nome": "Teste 2",
+      "email": "teste2@email.com",
+      "telefone": "84988889999",
+      "dataNascimento": "2002-12-04",
+      "cpf": "12312345689",
+      "senha": "$2b$10$jUDIFNQh/F/Q7tgcyycZUu5uBSxG0/DBPR3GfpxGzU0z01BtSjOXu",
+      "eventos": []
     }
   ],
   "events": [
