@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const JWT_SECRET = "sua-chave-super-secreta-e-longa-12345";
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const loginMiddleware = (req, res, next) => {
   const token = req.cookies.token; // Pega o token puro vindo do cookie

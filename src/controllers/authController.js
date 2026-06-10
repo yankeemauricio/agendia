@@ -2,8 +2,11 @@ import { db } from "../data/data.js";
 import { registerUserService } from "../services/userService.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
-const JWT_SECRET = "sua-chave-super-secreta-e-longa-12345";
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const login = async (req, res) => {
   const { email, password } = req.body;

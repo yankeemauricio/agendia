@@ -11,7 +11,8 @@
       "eventos": [
         "f8e7d6c5-b4a3-4210-9182-736455463728",
         "4e7c7a52-9b2e-4f1a-8c9e-5872a4837b12",
-        "b5a4c3d2-e1f0-498b-7c6d-5e4f3a2b1c0d"
+        "b5a4c3d2-e1f0-498b-7c6d-5e4f3a2b1c0d",
+        "d1a2b3c4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
       ]
     },
     {
@@ -23,7 +24,8 @@
       "cpf": "70135366445",
       "senha": "$2b$10$Rsr90vsiuwCoGmIGKiGCyesUrUaoiUYLXYoXNEKJmjXGS7bz0lJpy",
       "eventos": [
-        "b1a2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"
+        "b1a2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+        "d1a2b3c4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
       ]
     },
     {
@@ -54,7 +56,9 @@
       "dataNascimento": "2002-12-04",
       "cpf": "00000000002",
       "senha": "$2b$10$/zo5s7/zS06jb10HeUDm4.Fx8SZMtLcBC6BgTSsjhVrsTmybk0LTq",
-      "eventos": [],
+      "eventos": [
+        "b1a2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"
+      ],
       "papel": "admin"
     },
     {
@@ -92,7 +96,8 @@
       "acesso": "Privado",
       "vagas": 30,
       "participantes": [
-        "e5734440-91b8-4c0b-a73f-89c27708c6c8"
+        "e5734440-91b8-4c0b-a73f-89c27708c6c8",
+        "bb34de84-2286-4819-8030-d0a7cc9b9e41"
       ]
     },
     {
@@ -116,7 +121,11 @@
       "horario": "10:00",
       "local": "Escritório Presencial",
       "acesso": "Restrito",
-      "vagas": 3
+      "vagas": 3,
+      "participantes": [
+        "29269589-c56b-4d4d-9c80-278467b6cb4f",
+        "e5734440-91b8-4c0b-a73f-89c27708c6c8"
+      ]
     },
     {
       "id": "a9b8c7d6-e5f4-3a21-0b1c-2d3e4f5a6b7c",
@@ -693,14 +702,14 @@
       "vagas": 70
     },
     {
-      "id": "4e0b477d-f2e4-49e3-a5f8-28600b4fb814",
-      "titulo": "Evento teste",
-      "descricao": "ssss",
-      "data": "04-12-2026",
-      "horario": "04:12",
-      "local": "ssss",
+      "id": "f63dc408-2002-47ad-ae83-9c09d569b73e",
+      "titulo": "Apresentação da Plataforma Agendia",
+      "descricao": "Apresentação da Plataforma Agendia, mostrando funcionalidades e códigos.",
+      "data": "16-06-2026",
+      "horario": "09:00",
+      "local": "LabInfo 3 - ECT",
       "acesso": "Público",
-      "vagas": 44,
+      "vagas": 30,
       "participantes": []
     }
   ]

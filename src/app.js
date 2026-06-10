@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from "dotenv";
 import eventRoutes from "./routes/eventRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
@@ -15,6 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+dotenv.config();
 
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.json());
