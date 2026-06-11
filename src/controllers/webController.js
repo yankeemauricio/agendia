@@ -4,22 +4,20 @@ import {
   getEventByNameRepository,
 } from "../repositories/eventRepository.js";
 import { getMyEventsRepository } from "../repositories/participantRepository.js";
-import { db } from "../data/data.js";
+import { getUserByIdRepository } from "../repositories/usersRepository.js";
 
 export const getEventsWeb = async (req, res) => {
   try {
-    const { search } = req.params;
+    const { search } = req.query;
     let events;
 
-    if (search) {
-      // Usa o repositório de busca por nome se houver uma query 'search'
+    if (search && search.trim() !== "") {
       events = await getEventByNameRepository(search);
     } else {
-      // Caso contrário, lista todos
       events = await getEventsRepository();
     }
 
-    res.render("index", { events, searchTerm: search });
+    res.render("index", { events, searchTerm: search || "" });
   } catch (error) {
     res.status(500).send("Erro ao carregar o Agendia: " + error.message);
   }
@@ -35,6 +33,7 @@ export const getMyEventsWeb = async (req, res) => {
   }
 };
 
+//  Corrigido: Apenas um async e sem parênteses extras na abertura
 export const getEventDetailsWeb = async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,29 +61,46 @@ export const loginPage = (req, res) => {
   res.render("login", { error });
 };
 
-export const userPage = (req, res) => {
-  db.read();
-  const user = db.data.users.find((u) => u.id === req.userId);
-  res.render("perfil", { user });
+export const userPage = async (req, res) => {
+  try {
+    const user = await getUserByIdRepository(req.userId);
+
+    if (!user) {
+      return res.redirect("/login");
+    }
+
+    res.render("perfil", { user });
+  } catch (error) {
+    res.status(500).send("Erro ao carregar o perfil: " + error.message);
+  }
 };
 
 export const createEventPage = (req, res) => {
   res.render("criar-evento", { event: null, error: null });
 };
 
-export const adminEventsPage = (req, res) => {
-  db.read();
-  const events = db.data.events;
-  res.render("analisar-eventos", { events });
+export const adminEventsPage = async (req, res) => {
+  try {
+    const events = await getEventsRepository();
+    res.render("analisar-eventos", { events });
+  } catch (error) {
+    res
+      .status(500)
+      .send("Erro ao carregar o painel administrativo: " + error.message);
+  }
 };
 
-export const editEventPage = (req, res) => {
-  db.read();
-  const event = db.data.events.find((e) => e.id === req.params.id);
-  if (!event) {
-    return res
-      .status(404)
-      .render("error", { message: "Evento não encontrado" });
+export const editEventPage = async (req, res) => {
+  try {
+    const event = await getEventByIdRepository(req.params.id);
+
+    if (!event) {
+      return res
+        .status(404)
+        .render("error", { message: "Evento não encontrado" });
+    }
+    res.render("editar-evento", { event, error: null });
+  } catch (error) {
+    res.status(500).send("Erro ao carregar página de edição: " + error.message);
   }
-  res.render("editar-evento", { event, error: null });
 };

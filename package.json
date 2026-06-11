@@ -29,7 +29,7 @@
     "jsonwebtoken": "^9.0.3",
     "lowdb": "^7.0.1",
     "mongodb": "^7.3.0",
-    "mongoose": "^9.5.0",
+    "mongoose": "^9.7.0",
     "pug": "^3.0.4"
   },
   "devDependencies": {

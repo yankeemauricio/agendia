@@ -1,84 +1,65 @@
-import { db } from "../data/data.js";
+import event from "../models/eventSchema.js";
+import user from "../models/userSchema.js";
 
-// Função auxiliar para buscar o participante de forma segura
 export const getParticipantRepository = async (eventId, participantId) => {
-  await db.read();
+  const foundEvent = await event.findOne({
+    id: eventId,
+    participantes: participantId,
+  });
 
-  const event = db.data.events.find((e) => e.id === eventId);
-  if (!event || !event.participantes) return null;
-
-  const participant = event.participantes.find((p) => p === participantId);
-  return participant || null;
+  return foundEvent ? participantId : null;
 };
 
-// Registra o participante no evento E o evento no usuário
 export const createParticipantRepository = async (eventId, participantId) => {
-  await db.read();
+  // 1. Verifica se o evento existe
+  const foundEvent = await event.findOne({ id: eventId });
+  if (!foundEvent) throw new Error("Evento não encontrado no banco");
 
-  // 1. Localiza o evento e insere o participante
-  const event = db.data.events.find((e) => e.id === eventId);
-  if (!event) throw new Error("Evento não encontrado no banco");
-  if (!event.participantes) event.participantes = [];
-  // Evita duplicidade no array do evento se rodar em paralelo
-  if (!event.participantes.includes(participantId)) {
-    event.participantes.push(participantId);
-  } else {
+  // 2. Verifica se o usuário existe
+  const foundUser = await user.findOne({ id: participantId });
+  if (!foundUser) throw new Error("Usuário não encontrado no banco");
+
+  // 3. Evita duplicidade usando o $addToSet (só adiciona se não existir no array)
+  // Se o participante já existir, o MongoDB não faz nada
+  if (foundEvent.participantes.includes(participantId)) {
     throw new Error("Participação já registrada para este evento");
   }
 
-  // 2. Localiza o usuário e insere o evento no vetor dele
-  const user = db.data.users.find((u) => u.id === participantId);
-  if (!user) throw new Error("Usuário não encontrado no banco");
-  if (!user.eventos) user.eventos = []; // Garante que o vetor de eventos existe no user
+  // 4. Executa as atualizações atômicas em paralelo para melhor performance
+  await Promise.all([
+    event.updateOne(
+      { id: eventId },
+      { $addToSet: { participantes: participantId } },
+    ),
+    user.updateOne({ id: participantId }, { $addToSet: { eventos: eventId } }),
+  ]);
 
-  // Evita duplicidade no array do usuário
-  if (!user.eventos.includes(eventId)) {
-    user.eventos.push(eventId);
-  }
-
-  // Salva ambas as alterações de uma só vez
-  await db.write();
-  return event.participantes;
+  // Busca o evento atualizado para retornar a lista de participantes
+  const updatedEvent = await event.findOne({ id: eventId });
+  return updatedEvent.participantes;
 };
 
-// Remove o participante do evento E o evento do usuário
 export const deleteParticipantRepository = async (eventId, participantId) => {
-  await db.read();
+  await Promise.all([
+    event.updateOne(
+      { id: eventId },
+      { $pull: { participantes: participantId } },
+    ),
+    user.updateOne({ id: participantId }, { $pull: { eventos: eventId } }),
+  ]);
 
-  // 1. Remove o participante da lista do evento
-  const event = db.data.events.find((e) => e.id === eventId);
-  if (event && event.participantes) {
-    event.participantes = event.participantes.filter(
-      (p) => p !== participantId,
-    );
-  }
-
-  // 2. Remove o evento da lista do usuário
-  const user = db.data.users.find((u) => u.id === participantId);
-  if (user && user.eventos) {
-    user.eventos = user.eventos.filter((eId) => eId !== eventId);
-  }
-
-  await db.write();
   return participantId;
 };
 
 export const getMyEventsRepository = async (participantId) => {
-  await db.read();
-  // 1. Localiza o usuário no banco
-  const user = db.data.users.find((u) => u.id === participantId);
-
-  // Se o usuário não existir ou não tiver nenhuma inscrição, retorna um array vazio
-  if (!user || !user.eventos || user.eventos.length === 0) {
+  const foundUser = await user.findOne({ id: participantId });
+  if (!foundUser || !foundUser.eventos || foundUser.eventos.length === 0) {
     return [];
   }
 
-  // 2. Transforma o array de IDs [id1, id2] em um array de objetos de eventos completos
-  const completEvents = user.eventos
-    .map((eventId) => {
-      // Procura o evento completo na lista global de eventos
-      return db.data.events.find((e) => e.id === eventId);
-    })
-    .filter((event) => event !== undefined); // Remove possíveis eventos que foram deletados do banco global
-  return completEvents;
+  const completeEvents = await event.find({
+    id: { $in: foundUser.eventos },
+  });
+
+  return completeEvents;
 };
