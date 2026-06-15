@@ -15,16 +15,16 @@ import validate from "../middlewares/validatorMiddleware.js";
 
 const router = Router();
 
-router.get("/", getUsers); //autenticação necessária
-router.get("/search/:name", getUserbyName); //autenticação necessária
-router.get("/:id", getUserById); //autenticação necessária, só pode acessar seu próprio perfil ou se for admin
+router.get("/", loginMiddleware, getUsers); //autenticação necessária
+router.get("/search/:name", loginMiddleware, getUserbyName); //autenticação necessária
+router.get("/:id", loginMiddleware, getUserById); //autenticação necessária, só pode acessar seu próprio perfil ou se for admin
 router.post("/", registerUserValidationRules, validate, registerUser); //autenticação não necessária
 router.patch(
-  "/:id",
+  "/:id", loginMiddleware,
   partialUpdateUserValidationRules,
   validate,
   partialUpdateUser,
 ); //autenticação necessária, só pode atualizar seu próprio perfil ou se for admin
-router.delete("/:id", deleteUser); //autenticação necessária, só pode deletar seu próprio perfil ou se for admin
+router.delete("/:id", loginMiddleware, deleteUser); //autenticação necessária, só pode deletar seu próprio perfil ou se for admin
 
 export default router;
