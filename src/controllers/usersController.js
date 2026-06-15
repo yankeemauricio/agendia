@@ -69,7 +69,16 @@ export const partialUpdateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    await deleteUserService(id);
+    const senhaAtual = req.body.senha;
+
+    // Verificar se a senha foi fornecida
+    if (!senhaAtual) {
+      return res
+        .status(400)
+        .json({ error: "A senha atual é obrigatória para deletar o usuário." });
+    }
+
+    await deleteUserService(id, senhaAtual);
     res.json({ message: "Usuário removido com sucesso" });
   } catch (error) {
     next(error);

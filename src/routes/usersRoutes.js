@@ -12,6 +12,7 @@ import {
   partialUpdateUserValidationRules,
 } from "../validators/usersValidator.js";
 import validate from "../middlewares/validatorMiddleware.js";
+import { loginMiddleware } from "../middlewares/loginMiddleware.js";
 
 const router = Router();
 

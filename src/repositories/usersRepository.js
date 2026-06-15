@@ -46,6 +46,14 @@ export const registerUserRepository = async (userData) => {
 };
 
 export const partialUpdateUserRepository = async (id, userData) => {
+  const currentUser = await user.findOne({ id: id });
+  if (!currentUser) {
+    return null;
+  }
+  const isMatch = await bcrypt.compare(userData.senhaAtual, currentUser.senha);
+  if (!isMatch) {
+    throw new Error("Senha atual incorreta");
+  }
   if (userData.senha) {
     const saltRounds = 10;
     userData.senha = await bcrypt.hash(userData.senha, saltRounds);
@@ -59,7 +67,17 @@ export const partialUpdateUserRepository = async (id, userData) => {
   return updatedUser ? usersResponseDTO(updatedUser) : null;
 };
 
-export const deleteUserRepository = async (id) => {
+export const deleteUserRepository = async (id, senhaAtual) => {
+  const currentUser = await user.findOne({ id: id });
+  if (!currentUser) {
+    return null;
+  }
+
+  const isMatch = await bcrypt.compare(senhaAtual, currentUser.senha);
+  if (!isMatch) {
+    throw new Error("Senha incorreta");
+  }
+
   const deletedUser = await user.findOneAndDelete({ id: id });
   return deletedUser ? usersResponseDTO(deletedUser) : null;
 };
