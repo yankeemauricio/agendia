@@ -14,7 +14,7 @@ const eventSchema = new mongoose.Schema(
     local: { type: String, required: true, trim: true },
     acesso: {
       type: String,
-      enum: ["Público", "Privado, Restrito"],
+      enum: ["Público", "Privado", "Restrito"],
       default: "Público",
     },
     vagas: { type: Number, required: true, min: 0 },
