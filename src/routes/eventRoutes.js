@@ -31,10 +31,11 @@ router.post(
 router.patch(
   "/:id",
   loginMiddleware,
+  checkRole("admin"),
   eventUpdateValidationRules,
   validate,
   parcialUpdateEvent,
 );
-router.delete("/:id", loginMiddleware, deleteEvent);
+router.delete("/:id", loginMiddleware, checkRole("admin"), deleteEvent);
 
 export default router;
